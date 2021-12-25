@@ -1,0 +1,12 @@
+.Board-Container {
+  display: grid;
+  justify-content: center;
+}
+
+.Tile-Row {
+  display: flex;
+}
+
+.Tile-Col:hover {
+  transform: scale(1.1);
+}
