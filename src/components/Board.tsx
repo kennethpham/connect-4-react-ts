@@ -8,10 +8,10 @@ interface BoardProps {
 }
 
 const Board: FC<BoardProps> = (props) => {
-  const [boardArr, setBoardArr]: [number[][], 
+  const [boardArr, setBoardArr]: [number[][],
     React.Dispatch<React.SetStateAction<number[][]>>]
     = useState<number[][]>([]);
-  
+
   useEffect(() => {
     const newBoardArr: number[][] = [];
     let i: number;
@@ -23,22 +23,38 @@ const Board: FC<BoardProps> = (props) => {
       }
     }
     setBoardArr(newBoardArr);
-  }, [])
+  }, []);
 
-  return(
+  const chooseColCallBack = (col: number): boolean => {
+    let found = false;
+    const newBoardArr = boardArr;
+    for (let i = 5; i >= 0; i--) {
+      if (boardArr[i][col] === 0) {
+        newBoardArr[i][col] = props.player;
+        setBoardArr(newBoardArr);
+        found = true;
+        break;
+      }
+    }
+    return found;
+  };
+
+  return (
     <div className='Board'>
       <div className='Board-Container'>
         {boardArr.map((row, rowIndex) => {
-          return(
+          return (
             <div className='Tile-Row' key={rowIndex}>
-              {row.map((val, colIndex) => {
-                return(
-                  <div 
+              {row.map((_, colIndex) => {
+                return (
+                  <div
                     className='Tile-Col' key={`${rowIndex}-${colIndex}`}
                   >
-                    <Tile player={props.player}
+                    <Tile
                       playerCallback={props.playerCallback}
-                      val={val}
+                      col={colIndex}
+                      boardVal={boardArr[rowIndex][colIndex]}
+                      chooseColCallBack={chooseColCallBack}
                     />
                   </div>
                 )

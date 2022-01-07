@@ -1,7 +1,7 @@
 .Tile {
   width: 80px;
   height: 80px;
-  outline: 1px solid #000000;
   text-align: center;
   display: inline-block;
+  border-radius: 100%;
 }

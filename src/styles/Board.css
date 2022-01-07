@@ -1,12 +1,19 @@
 .Board-Container {
   display: grid;
   justify-content: center;
+  font-size: 0px;
 }
 
 .Tile-Row {
   display: flex;
+  padding: 1px;
+  background: teal;
 }
 
 .Tile-Col:hover {
   transform: scale(1.1);
+}
+
+.Tile-Col {
+  padding: 1px;
 }

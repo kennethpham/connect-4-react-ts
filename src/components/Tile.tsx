@@ -1,35 +1,32 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import '../styles/Tile.css';
 
 interface TileProps {
-  player: number;
   playerCallback(): void;
-  val: number;
+  col: number;
+  boardVal: number;
+  chooseColCallBack(col: number): boolean;
 }
 
 const Tile: FC<TileProps> = (props) => {
-  const [backgroundColor, setBackgroundColor]
-    : [string, React.Dispatch<React.SetStateAction<string>>]
-    = useState<string>('white');
   const changeColor = (): void => {
-    if (backgroundColor === 'white') {
-      if (props.player === 1) {
-        setBackgroundColor('red');
-      } else if (props.player === 2) {
-        setBackgroundColor('blue');
-      }
+    const used = props.chooseColCallBack(props.col);
+    if (used) {
       props.playerCallback();
     }
   }
+
   return (
     <div
       className='Tile'
       onClick={changeColor}
       style={{
-        backgroundColor: backgroundColor,
+        backgroundColor:
+          props.boardVal === 0 ?
+            'white' : props.boardVal === 1 ?
+              'red' : 'blue',
       }}
     >
-      {props.val}
     </div>
   );
 }
